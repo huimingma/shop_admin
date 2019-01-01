@@ -47,6 +47,7 @@ export default {
     }
   },
   methods: {
+    // 表单提交的代码逻辑
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) {
@@ -56,7 +57,19 @@ export default {
           console.log(res)
 
           if (res.data.meta.status === 200) {
+            // 存储token
             localStorage.setItem('token', res.data.data.token)
+            // 登陆成功跳转页面
+            // this.$router.push({ name: 'home' })
+            this.$router.push('/home')
+          } else {
+            // 登录失败提示用户信息
+            this.$message({
+              message: res.data.meta.msg,
+              type: 'error',
+              duration: 1000
+
+            })
           }
         })
       })

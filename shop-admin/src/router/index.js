@@ -1,13 +1,37 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 
 import Login from '@/components/login/Login'
+import Home from '@/components/home/Home'
 
 // 安装插件
-Vue.use(Router)
+Vue.use(VueRouter)
 // 创建路由实例，并导出
-export default new Router({
-  routes: [
-    { path: '/login', component: Login, name: 'login' }
+const router = new VueRouter({
+  routes: [{
+    path: '/login',
+    component: Login,
+    name: 'login'
+  },
+  {
+    path: '/home',
+    component: Home,
+    name: 'home'
+  }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    next()
+    return
+  }
+  const token = localStorage.getItem('token')
+  if (token) {
+    next()
+  } else {
+    next('./login')
+  }
+})
+
+export default router
