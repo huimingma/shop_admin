@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // promise 是一个构造函数
+    // 可以把它看作一个容器，内部封装了异步操作
+    // promise的参数是一个回调函数
+    // 回调函数有两个参数
+    // reject  表示失败的回调函数，promise执行失败时，会调用这个函数
+    // resolve 表示成功的回调函数，promise执行成功时，会调用这个函数
+
+    const p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(123)
+      }, 1000);
+    })
+
+    // then 表示成功，当异步操作成功时，会调用
+    p.then(data => {
+        console.log(data)
+
+        // 返回值，会作为下一个then回调函数的参数
+        return 1111
+      })
+      .then(data => {
+        console.log(data)
+        return 2222
+      })
+      .then(data => {
+        console.log(data, '到此结束')
+      })
+  </script>
+</body>
+
+</html>
